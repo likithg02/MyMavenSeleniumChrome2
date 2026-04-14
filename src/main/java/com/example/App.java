@@ -8,7 +8,18 @@ public class App {
 
     public static void main(String[] args) throws InterruptedException {
 
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+
+        // Conditional headless setup
+        String headless = System.getProperty("headless");
+
+        if ("true".equals(headless)) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+        }
+
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
         driver.get("https://practicetestautomation.com/practice-test-login/");
